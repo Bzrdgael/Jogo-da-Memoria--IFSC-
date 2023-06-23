@@ -17,7 +17,7 @@ bool isValidPosition(int row, int col);
 void playGame();
 
 void createBoard(char board[][BOARD_SIZE]) {
-    char symbols[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+    char symbols[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     int pairs[NUM_PAIRS * 2];
     srand(time(NULL));
 
@@ -119,6 +119,8 @@ void playGame() {
 
     printLetters(board);
 
+    time_t startTime = time(NULL);
+
     while (numPairs > 0 && !isBoardFull(revealed)) {
         system("clear"); // Limpa a tela (apenas para sistemas Unix/Linux)
         printf("Tabuleiro:\n\n");
@@ -171,8 +173,11 @@ void playGame() {
     printBoard(board, revealed);
     printf("\n");
 
+    time_t endTime = time(NULL);
+    int elapsedTime = (int)difftime(endTime, startTime);
+
     if (numPairs == 0) {
-        printf("Parabéns! Você completou o jogo em %d tentativas.\n", numAttempts);
+        printf("Parabéns! Você completou o jogo em %d tentativas em %d segundos.\n", numAttempts, elapsedTime);
     } else {
         printf("Você não conseguiu encontrar todos os pares. Tente novamente!\n");
     }
